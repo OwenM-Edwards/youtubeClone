@@ -1,0 +1,27 @@
+Connect to cloudinary instead of youtube.{
+   create folders that contain the videos.
+   Figure out a way to search for videos { 
+      figure out way to find videos with similar titles, not just matching.
+   }
+
+
+   login functionality = {
+      create profile
+      upload videos to your profile.
+      deliver profile information alongside a video.
+   }
+
+
+   subscribe functionality = {
+      subscribe to a channel.
+      Subscritpion page, pulls all videos of all subscribers = {
+         displays them newest => oldest.
+      }
+   }
+
+
+   commenting functionality = {
+      ability to leave a comment on any video.
+      ability to delete a comment.
+   }
+}
