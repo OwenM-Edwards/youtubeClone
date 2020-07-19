@@ -1,6 +1,7 @@
 import React from 'react';
 import { SearchResults,VideoDetails } from '../components/';
 import { useLocation } from 'react-router';
+import {useSelector} from 'react-redux';
 
 import styled from "styled-components";
 
@@ -37,20 +38,23 @@ const StyledSearchResultsSide = styled.div`
 
 
 const Watch = () => {
-   let props = useLocation();
-   console.log(props)
+   // const { searchString } = useParams(); 
+   const currentSearchList = useSelector(state=>state.searchQuery);
+   const selectedVideo = useSelector(state=>state.selectedVideo);
+
+   console.log(selectedVideo)
    return(
       <Wrapper>
-         {props.watchProps.selectedVideo ? <StyledVideoDetails><VideoDetails video={props.watchProps.selectedVideo}></VideoDetails></StyledVideoDetails> : <React.Fragment/>}
+         <h1>THIS IS WATCH</h1>
+         {selectedVideo ? <StyledVideoDetails><VideoDetails></VideoDetails></StyledVideoDetails> : <React.Fragment/>}
 
-         {props.watchProps.selectedVideo ? 
-            <StyledSearchResultsSide><SearchResults videos={props.watchProps.videos} onVideoSelect={props.watchProps.onVideoSelect}></SearchResults>
-            </StyledSearchResultsSide>
+         {/* {selectedVideo ? 
+            <StyledSearchResultsSide><SearchResults></SearchResults> </StyledSearchResultsSide>
             : 
             <StyledSearchResults>
-               <SearchResults videos={props.watchProps.videos} onVideoSelect={props.watchProps.onVideoSelect}></SearchResults>
+               <SearchResults></SearchResults>
             </StyledSearchResults>
-         }
+         } */}
       </Wrapper>
    )
 }

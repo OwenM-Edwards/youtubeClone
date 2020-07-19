@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledContent = styled.div`
-   background-color:#121212;
+   background-color:RED;
    flex: 1 0 auto;
    max-width:calc(100% - 200px);
    position:relative;

@@ -1,27 +1,20 @@
 import React from 'react';
-import AppRouter from './AppRouter'
+import Router from './Router'
+
+// TO ACCESS REDUX STATE
+import {useSelector,useDispatch} from 'react-redux';
+import {setSearch} from './redux/actions';
 
 const App = () => {
+   const searchString = useSelector (state => state.searchString);
+   const dispatch = useDispatch();
+   dispatch(setSearch('test'))
+   // TO USE ON DISPATCH
+   // for example, on click -->  onClick={()=> dispatch(increment())}
    return (
-      <AppRouter></AppRouter>
-
-
-      // <Grid justify="center" container spacing={10}> 
-      //    <Grid item xs={12}>
-      //       <Grid container spacing={10}>
-      //          <Grid item xs={12}>
-      //             <SearchBar onFormSubmit={handleSubmit}/>
-      //          </Grid>
-      //          <Grid item xs={8}>
-      //             <VideoDetails video={selectedVideo}/>
-      //          </Grid>
-      //          <Grid item xs={4}>
-      //             <VideoList videos={videos} onVideoSelect={setSelectedVideo} />
-      //          </Grid>
-      //       </Grid>
-      //    </Grid>
-      // </Grid>
+      <Router></Router>
    )
 }
 
 export default App;
+

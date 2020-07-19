@@ -1,6 +1,8 @@
 import React, { useState } from 'react'; 
-
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import {useDispatch} from 'react-redux';
+
 
 const Wrapper = styled.div`
    max-width:900px;
@@ -8,7 +10,7 @@ const Wrapper = styled.div`
    margin:auto auto;
    display:flex;
    flex-direction:row;
-`
+`;
 const StyledSearchBar = styled.input`
    width:90%;
    height:35px;
@@ -22,10 +24,8 @@ const StyledSearchBar = styled.input`
    color:#e3e3e3;
    padding-left:20px;
    font-size:1.2rem;
-
-
 `;
-const StyledSearchButton = styled.button`
+const StyledSearchButton = styled.button` 
    height:47px;
    padding:5px;
    width:80px;
@@ -38,24 +38,27 @@ const StyledSearchButton = styled.button`
 const StyledSearchImage = styled.img`
    height:100%;
 `
-const SearchBar = ({onFormSubmit}) => {
-   const [ searchTerm, setSearchTerm ] = useState('');
 
-   const onKeyPress = (event) => {
+
+const SearchBar = () => {
+   const history = useHistory();
+   const dispatch = useDispatch();
+   
+   const handleSearch = (event) => {
       if(event.key === "Enter") {
-         onFormSubmit(searchTerm)
+         //if searchterm entered do this, otherwise do nothing.
+         if(event.target.value.trim()){
+            dispatch({type:'UPDATE_RESULTS',payload:event.target.value});
+            history.push(`/search/${event.target.value}`);
+         }
       }
    }
-   
-   const handleChange = (event) => {
-      setSearchTerm(event.target.value);
-   };
 
    return(
       <Wrapper>
-         <StyledSearchBar onKeyPress={onKeyPress} onChange={handleChange} type="text" placeholder="Search..">
+         <StyledSearchBar onKeyPress={handleSearch} type="text" placeholder="Search..">
          </StyledSearchBar>
-         <StyledSearchButton containerStyle ={{backgroundColor: 'transparent'}} onClick={onFormSubmit}><StyledSearchImage src={require('../img/search.png')}></StyledSearchImage></StyledSearchButton>
+         <StyledSearchButton  containerStyle ={{backgroundColor: 'transparent'}} ><StyledSearchImage src={require('../img/search.png')}></StyledSearchImage></StyledSearchButton>
       </Wrapper>
    )
 }

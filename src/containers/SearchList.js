@@ -1,6 +1,6 @@
-import React from 'react';
-import { useLocation } from 'react-router';
+import React, { useEffect } from 'react';
 import { SearchResults } from '../components/';
+import {useSelector} from 'react-redux';
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -12,10 +12,12 @@ const Wrapper = styled.div`
 `;
 
 const SearchList = () => {
-   let props = useLocation();
+   const currentSearchList = useSelector(state=>state.searchQuery);
+
    return(
       <Wrapper>
-         <SearchResults videos={props.watchProps.videos} onVideoSelect={props.watchProps.onVideoSelect}></SearchResults>
+         {currentSearchList ? <SearchResults></SearchResults> : <React.Fragment></React.Fragment>}
+         
       </Wrapper>
    )
 }

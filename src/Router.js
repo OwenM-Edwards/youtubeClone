@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -9,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { Sidebar, Header } from './components';
-import { Watch, SearchList } from './pages';
+import { Watch, SearchList } from './containers';
 import StyledContent from './styles/Content';
 
 const Wrapper = styled.section`
@@ -17,6 +16,7 @@ const Wrapper = styled.section`
    height:100%;
    display:flex;
    flex-direction: column;
+   background-color:blue;
 `;
 
 const AppRouter = () => {
@@ -28,12 +28,12 @@ const AppRouter = () => {
             <StyledContent> 
                <Switch>
                   <Route 
-                     exact path="/watch"
-                     render={() => <Watch/>} 
+                     path="/search/:searchstring"
+                     render={() => <SearchList/>} 
                   />
                   <Route 
-                     exact path="/search"
-                     render={() => <SearchList/>} 
+                     path="/watch/:selectedVideo"
+                     render={() => <Watch/>} 
                   />
                   <Route path="/"/>
                   <Redirect to="/" />

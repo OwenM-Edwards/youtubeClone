@@ -1,11 +1,10 @@
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import { SearchBar} from '../components';
-import youtube from '../api/youtube';
-import { useHistory } from "react-router-dom";
 import {
    Link,
 } from "react-router-dom";
+
 
 const StyledHeader = styled.header`
    flex-shrink: 0;
@@ -29,59 +28,19 @@ const StyledLogo = styled.img`
 `;
 
 
-
 const Header = () => {
-   const [ selectedVideo, setSelectedVideo ] = useState(null);
-   const [ videos, setVideos ] = useState([]);
-   let history = useHistory();
-
-   useEffect(()=>{
-      if(videos.length > 0 && selectedVideo){
-         history.push({
-            pathname:'/watch', 
-            watchProps:{
-               videos:videos,
-               selectedVideo:selectedVideo,
-               onVideoSelect:setSelectedVideo
-            }
-         });
-      }
-      else if(videos.length > 0 && !selectedVideo) {
-         history.push({
-            pathname:'/search', 
-            watchProps:{
-               videos:videos,
-               selectedVideo:selectedVideo,
-               onVideoSelect:setSelectedVideo
-            }
-         });
-      }
-   });
-
-   const handleSubmit = async (searchTerm) => {
-      const response = await youtube.get('search', { 
-         params: {
-            part: 'snippet',
-            maxResults: 5,
-            key: 'AIzaSyChmmFF1_eI9QnAvb1VTb88zjWTC8PkUG0',
-            q: searchTerm,
-         }
-      })
-      console.log(response);
-      setVideos(response.data.items);
-      setSelectedVideo(null);
-   }
-
    return(
       <StyledHeader>
+         <h1>HEADER</h1>
          <Link style={{width:"0"}} to="/">
             <StyledLogo src={require('../img/test.png')}></StyledLogo>
          </Link>
          
-         <SearchBar onFormSubmit={handleSubmit}></SearchBar>
+         <SearchBar></SearchBar>
 
       </StyledHeader>
    )
 }
+
 
 export default Header
