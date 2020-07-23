@@ -1,7 +1,6 @@
-import React, { useState } from 'react'; 
+import React from 'react'; 
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import {useDispatch} from 'react-redux';
 
 
 const Wrapper = styled.div`
@@ -42,13 +41,11 @@ const StyledSearchImage = styled.img`
 
 const SearchBar = () => {
    const history = useHistory();
-   const dispatch = useDispatch();
    
    const handleSearch = (event) => {
       if(event.key === "Enter") {
          //if searchterm entered do this, otherwise do nothing.
          if(event.target.value.trim()){
-            dispatch({type:'UPDATE_RESULTS',payload:event.target.value});
             history.push(`/search/${event.target.value}`);
          }
       }

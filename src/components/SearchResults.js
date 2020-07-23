@@ -1,18 +1,17 @@
-import React, {useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import React from 'react';
 import VideoItem from './VideoItem';
 
 
-const SearchResults = () => {
-   const currentSearchList = useSelector(state=>state.searchQuery.payload);
+const SearchResults = ({currentSearchList}) => {
 
-
-   const listOfVideos = currentSearchList.map((video, id) => <VideoItem key={id} video={video}/>)
    return (
       <React.Fragment>
-         {listOfVideos} 
+         {currentSearchList?.map((video, id) => (
+               <VideoItem key={id} video={video}/>
+            ))}
       </React.Fragment>
    )
 }
+
 
 export default SearchResults;

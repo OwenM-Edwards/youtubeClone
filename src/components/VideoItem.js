@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import {useDispatch} from 'react-redux';
+
 
 const Wrapper = styled.div`
    width:100%;
@@ -13,7 +13,6 @@ const Wrapper = styled.div`
    grid-template-areas: "vid text text text";
    cursor:pointer;
 `
-
 const StyledImg = styled.img`
    width:100%;
    grid-area: vid;
@@ -23,16 +22,13 @@ const StyledH3 = styled.h3`
    grid-area: text;
 `
 
+
 const VideoItem = ({ video }) =>{
-   const dispatch = useDispatch();
    const history = useHistory();
 
-
    const handleClick = (event) => {
-      dispatch({type:'SELECT_VIDEO',payload:event});
-      history.push(`/watch/${event}`);
+      history.push(`/watch/${event.id.videoId}`);
    }
-
 
    return(
       <Wrapper onClick={()=> handleClick(video)} >
@@ -41,5 +37,6 @@ const VideoItem = ({ video }) =>{
       </Wrapper>
    )
 }
+
 
 export default VideoItem;

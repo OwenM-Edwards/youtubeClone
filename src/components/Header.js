@@ -31,7 +31,6 @@ const StyledLogo = styled.img`
 const Header = () => {
    return(
       <StyledHeader>
-         <h1>HEADER</h1>
          <Link style={{width:"0"}} to="/">
             <StyledLogo src={require('../img/test.png')}></StyledLogo>
          </Link>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SearchResults,VideoDetails } from '../components/';
-import { useLocation } from 'react-router';
-import {useSelector} from 'react-redux';
-
+import {useSelector, useDispatch} from 'react-redux';
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { setSearch,setSearchById } from '../redux/actions';
+
 
 const Wrapper = styled.div`
    width:100% ;
@@ -14,19 +15,12 @@ const Wrapper = styled.div`
    gap: 1px 1px;
    grid-template-areas: "StyledVideoDetails StyledVideoDetails StyledVideoDetails StyledVideoDetails StyledSearchResultsSide";
 `;
-
 const StyledVideoDetails = styled.div`
    grid-area: StyledVideoDetails;
    position:relative;
    width:100%;
    height:0;
    padding-top:60%;
-`;
-const StyledSearchResults = styled.div`
-   width:100%;
-   height:100%;
-   display:flex;
-   flex-direction:column;
 `;
 const StyledSearchResultsSide = styled.div`
    width:100%;
@@ -38,25 +32,33 @@ const StyledSearchResultsSide = styled.div`
 
 
 const Watch = () => {
-   // const { searchString } = useParams(); 
-   const currentSearchList = useSelector(state=>state.searchQuery);
-   const selectedVideo = useSelector(state=>state.selectedVideo);
+   const dispatch = useDispatch();
+   const { videoId } = useParams(); 
+   const selectedVideo = useSelector(state=>state.selectedVideoID.video);
+   const sideList = useSelector(state=>state.searchQuery.videos.slice(1));
 
-   console.log(selectedVideo)
+   useEffect(() => {
+      dispatch(setSearchById(videoId));
+
+   }, [dispatch,videoId]);
+
+   useEffect(() => {
+      if(selectedVideo){
+         dispatch(setSearch(selectedVideo.snippet.title));
+      }
+   }, [dispatch,selectedVideo]);
+
+
    return(
       <Wrapper>
-         <h1>THIS IS WATCH</h1>
-         {selectedVideo ? <StyledVideoDetails><VideoDetails></VideoDetails></StyledVideoDetails> : <React.Fragment/>}
+         <h1>test</h1>
+         <StyledVideoDetails> <VideoDetails></VideoDetails> </StyledVideoDetails>
 
-         {/* {selectedVideo ? 
-            <StyledSearchResultsSide><SearchResults></SearchResults> </StyledSearchResultsSide>
-            : 
-            <StyledSearchResults>
-               <SearchResults></SearchResults>
-            </StyledSearchResults>
-         } */}
+         {sideList ? <StyledSearchResultsSide> <SearchResults currentSearchList={sideList}></SearchResults> </StyledSearchResultsSide> : <React.Fragment></React.Fragment>}
+         
       </Wrapper>
    )
 }
+
 
 export default Watch;

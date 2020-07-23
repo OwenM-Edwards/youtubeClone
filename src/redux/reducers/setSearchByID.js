@@ -1,14 +1,14 @@
 const initialState = {
-   videos:'',
+   video:null,
    isFetching: true,
 };
 
 
-const setSearchReducer = (state = initialState, action) => {
+const setSearchByIDReducer = (state = initialState, action) => {
    switch(action.type){
-      case 'UPDATE_RESULTS':
+      case 'SEARCH_BY_ID':
          return {
-            videos: action.payload.videos,
+            video: action.payload.video,
             isFetching:action.payload.isFetching,
          }
       
@@ -18,4 +18,4 @@ const setSearchReducer = (state = initialState, action) => {
 }
 
 
-export default setSearchReducer;
+export default setSearchByIDReducer;

@@ -1,10 +1,12 @@
 import setSearchReducer from './setSearch';
-import selectVideoReducer from './selectVideo';
+import setSearchByIDReducer from './setSearchByID';
 import {combineReducers} from 'redux';
+
 
 const rootReducer = combineReducers({ 
    searchQuery:setSearchReducer,
-   selectedVideo:selectVideoReducer
+   selectedVideoID:setSearchByIDReducer,
 })
+
 
 export default rootReducer;
