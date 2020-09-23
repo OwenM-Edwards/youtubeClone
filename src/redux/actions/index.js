@@ -35,3 +35,10 @@ export const setSearchById = (searchID) => async (dispatch) => {
       },
    })
 };
+
+export const authenticateUser = (payload) => (dispatch) => {
+   dispatch({
+      type: 'SIGN_IN',
+      payload: payload,
+   });
+}
