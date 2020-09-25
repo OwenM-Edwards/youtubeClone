@@ -1,13 +1,110 @@
 import React, {useState, useContext} from 'react';
 import styled from "styled-components";
-import { SearchBar} from '../components';
+import { SearchBar, LoadingIndicator } from '../components';
 import {
    Link,
    useHistory,
 } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux';
-import { authenticateUser } from '../redux/actions';
+import { authenticateUser, userStore } from '../redux/actions';
+import { useParams } from "react-router-dom";
+import { usePromiseTracker } from "react-promise-tracker";
+import { trackPromise } from 'react-promise-tracker';
+import axios from "axios";
 
+
+
+
+// Handles sign in for user, on success sends user to their home page.
+const SignIn = () => {
+   const dispatch = useDispatch();
+   const history = useHistory();
+   // Username and password state from sign in form.
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
+   const authenticated = useSelector(state=>state.authenticated.authenticated);
+   const test = useSelector(state=>state.userStore.user);
+
+   const handleUsernameChange = (event) => {
+      setUsername(event.target.value);
+   };   
+   const handlePasswordChange = (event) => {
+      setPassword(event.target.value);
+   };
+   const { promiseInProgress } = usePromiseTracker();
+   
+   // Submit sign in information to server,
+   // Fired from form submit.
+   // If server return 200 status, log user data and send to home.
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      const user = { username, password };
+      // If no user, return false.
+      if (!username){
+         return false;
+      }
+
+      trackPromise(
+         fetch('https://zibbly-youtube-clone.herokuapp.com/signin', {
+            method: 'post',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify({
+               password: password,
+               username: username,
+            })
+         })
+         .then(res=> {
+            if(res.status === 200){
+               dispatch(userStore(res.data));
+               dispatch(authenticateUser(true));
+               localStorage.setItem('user', authenticated);
+               localStorage.setItem('authenticated', authenticated);
+               history.push(`/home`);
+            }
+            else {
+               dispatch(authenticateUser(false));
+               history.push('/home');
+            }
+         })
+      );
+   };
+
+
+   // Switch to create account screen.
+   const switchToRegister = () => {
+      history.push(`/register`);
+   }
+
+   // If wating on fetch, return loading indicator.
+   if (promiseInProgress){
+      return (
+         <Wrapper>
+            <LoadingIndicator>
+
+            </LoadingIndicator>
+         </Wrapper>
+      )
+   }
+   else {
+      return(
+         <Wrapper>
+            <StyledForm onSubmit={handleSubmit}>
+               <StyledInputLabel for="userName">User Name:</StyledInputLabel><br/>
+               <StyledInput id="userName" type="text" name="userName" minlength="6" maxlength="6" placeholder="Email or Username" required onChange={handleUsernameChange}/><br/>
+   
+               <StyledInputLabel for="password" value="Password" name="password">Password:</StyledInputLabel><br/>
+               <StyledInput id="password" type="password" name="password" minlength="6" maxlength="6" placeholder="Password" required onChange={handlePasswordChange}/><br/>
+   
+               {/* submit sign in info */}
+               <StyledInputSubmit type="submit" value="Sign In"/><br/>
+   
+               {/* Send to register */}
+               <StyledButton onClick={switchToRegister} type="button" value="Create Account">Create Account</StyledButton>
+            </StyledForm>
+         </Wrapper>
+      )
+   }   
+}
 
 
 const Wrapper = styled.div`
@@ -75,62 +172,6 @@ const StyledButton = styled.button`
    }
 `
 
-
-
-const SignIn = () => {
-   const [username, setUsername] = useState('');
-   const [password, setPassword] = useState('');
-   const history = useHistory();
-
-
-   const handleUsernameChange = (event) => {
-      setUsername(event)
-   };
-   
-   const handlePasswordChange = (event) => {
-      setPassword(event)
-   };
-   
-   //SUBMIT SIGNIN DATA TO SERVER
-   const handleSubmit = (event) => {
-      fetch('https://zibbly-youtube-clone.herokuapp.com/signin', {
-         method: 'post',
-         headers: {'Content-Type' : 'application/json'},
-         body: JSON.stringify({
-            password: 'testing',
-            username: 'testing',
-            
-         })
-      })
-      .then(res=> res.json())
-      .then(data => {
-         console.log(data);
-      })
-      event.preventDefault();
-   };
-
-   const switchToRegister = () => {
-      history.push(`/register`);
-   }
-
-   return(
-      <Wrapper>
-         <StyledForm onSubmit={handleSubmit}>
-            <StyledInputLabel for="userName">User Name:</StyledInputLabel><br/>
-            <StyledInput id="userName" type="text" name="userName" minlength="6" maxlength="6" placeholder="Email or Username" required onChange={()=>handleUsernameChange()}/><br/>
-
-            <StyledInputLabel for="password" value="Password" name="password">Password:</StyledInputLabel><br/>
-            <StyledInput id="password" type="password" name="password" minlength="6" maxlength="6" placeholder="Password" required onChange={()=>handlePasswordChange()}/><br/>
-
-            {/* submit sign in info */}
-            <StyledInputSubmit type="submit" value="Sign In"/><br/>
-
-            {/* Send to register */}
-            <StyledButton onClick={switchToRegister} type="button" value="Create Account">Create Account</StyledButton>
-         </StyledForm>
-      </Wrapper>
-   )
-}
 
 
 export default SignIn
