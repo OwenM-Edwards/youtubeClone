@@ -39,6 +39,20 @@ export const setSearchById = (searchID) => async (dispatch) => {
 export const authenticateUser = (payload) => (dispatch) => {
    dispatch({
       type: 'SIGN_IN',
-      payload: payload,
+         payload: payload, 
    });
+}
+
+export const userStore = (payload) => (dispatch) => {
+   dispatch({
+      type: 'STORE_USER',
+      payload: payload,
+   })
+}
+
+export const toggleSidebar = (payload) => (dispatch) => {
+   dispatch({
+      type: 'TOGGLE_SIDEBAR',
+         payload: payload,
+   })
 }
