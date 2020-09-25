@@ -7,13 +7,15 @@ import {
   Switch,
 } from "react-router-dom";
 import { Sidebar, Header } from './components';
-import { Watch, Search, SignIn, Register, Home } from './containers';
+import { Watch, Search, SignIn, Register, Home, Upload } from './containers';
 import StyledContent from './styles/Content';
+import {useSelector} from 'react-redux';
 
 const theme = {
    primaryBGColor:'#1f1f1f',
    secondBGColor:'#181818',
-   primaryFontColor:'#EAEAEA',
+   primaryFontColor:'#e3e3e3',
+   hightlightColor:'#383838',
 }
 
 
@@ -26,8 +28,8 @@ const Wrapper = styled.section`
 `;
 
 
-
 const AppRouter = () => {
+   const authenticated = useSelector(state=>state.authenticated.authenticated);
    return(
       <ThemeProvider theme={theme}>
          <Router>
@@ -40,9 +42,32 @@ const AppRouter = () => {
                   path="/register"
                   render={() => <Register/>} 
                />
+               <Route path="/upload">
+               {
+                  authenticated 
+                     ? 
+                     <Wrapper>
+                        <Header/>
+                        <StyledContent> 
+                           <Route
+                              path="/upload"
+                              render={() => <Upload/>}
+                           />
+                        </StyledContent>
+                        <Sidebar/>
+                     </Wrapper>
+        
+                     : 
+                     <Route
+                        path="/upload"
+                        render={() => <SignIn/>}
+                     />
+               }
+               </Route>
+               
 
                <Wrapper>
-                  <Header></Header>
+                  <Header/>
                   <StyledContent> 
                         <Route 
                            path="/search/:searchstring"
@@ -56,9 +81,13 @@ const AppRouter = () => {
                            path="/home/"
                            render={() => <Home/>} 
                         />
+                        <Route
+                           path="/upload"
+                           render={() => <Upload/>}
+                        />
                         <Route path="/"/>
                   </StyledContent>
-                  <Sidebar></Sidebar>
+                  <Sidebar/>
                </Wrapper>
 
                <Redirect to="/" />
