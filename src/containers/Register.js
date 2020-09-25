@@ -76,29 +76,26 @@ const StyledButton = styled.button`
 
 
 
-
+// Handles account creation.
+// On success, will send user to home page.
 const Register = () => {
    const [userName, setUserName] = useState('');
    const [password, setPassword] = useState('');
    const [email, setEmail] = useState('');
    const history = useHistory();
 
-
-
    const handleUserNameChange = (event) => {
       setUserName(event);
    };
-   
    const handlePasswordChange = (event) => {
       setPassword(event);
    };
-
    const handleEmailChange = (event) => {
       setEmail(event);
    };
 
 
-   //Submit register data to server
+   //Submit register data to server, fired from form submit.
    const handleSubmit = (event) => {
       fetch('https://zibbly-youtube-clone.herokuapp.com/register', {
          method: 'post',
@@ -116,10 +113,10 @@ const Register = () => {
       event.preventDefault();
    };
 
+   // Send user to sign in page instead.
    const switchToSignIn = () => {
       history.push(`/signIn`);
    }
-
 
 
    return(
