@@ -23,6 +23,8 @@ const StyledH3 = styled.h3`
 `
 
 
+// Each video item is a thumbnail style link to a video. Shown in search list and as
+// recommeded videos.
 const VideoItem = ({ video }) =>{
    const history = useHistory();
 
