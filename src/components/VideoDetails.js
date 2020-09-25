@@ -12,6 +12,8 @@ const StyledIframe = styled.iframe`
 `;
 
 
+// Main video link view.
+// Contains large video player along with title, channel and description information.
 const VideoDetails = () => {
    const selectedVideo = useSelector(state=>state.selectedVideoID.video);
    if(!selectedVideo) return <div>Loading...</div>
