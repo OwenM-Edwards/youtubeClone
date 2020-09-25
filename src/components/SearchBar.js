@@ -11,8 +11,8 @@ const Wrapper = styled.div`
    flex-direction:row;
 `;
 const StyledSearchBar = styled.input`
-   width:90%;
-   height:35px;
+   width:70%;
+   height:25px;
    line-height:35px;
    background:#121212;
    border:1px solid #303030;
@@ -23,9 +23,12 @@ const StyledSearchBar = styled.input`
    color:#e3e3e3;
    padding-left:20px;
    font-size:1.2rem;
+   position:relative;
+   bottom:5px;
+   left:20%;
 `;
 const StyledSearchButton = styled.button` 
-   height:47px;
+   height:37px;
    padding:5px;
    width:80px;
    margin-right:auto;
@@ -33,12 +36,17 @@ const StyledSearchButton = styled.button`
    border:none;
    border-radius:0px 5px 5px 0px;
    cursor:pointer;
+   position:relative;
+   bottom:5px;
+   left:20%;
 `;
 const StyledSearchImage = styled.img`
    height:100%;
+
 `
 
-
+// Main searchbar. Is located inside the header.
+// On submit, sends user to seachResults.
 const SearchBar = () => {
    const history = useHistory();
    
