@@ -8,6 +8,7 @@ const toggleSidebarReducer = (state = initialState, action) => {
       case 'TOGGLE_SIDEBAR':
          return {
             isExtended: action.payload,
+            isFetching:action.payload.isFetching,
          }
       
       default:

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import { useHistory, useLocation, useRef } from "react-router-dom";
 import {useSelector} from 'react-redux';
@@ -37,8 +37,56 @@ const Sidebar = () => {
 
    if (sidebarToggleState){
       return(
+         // Retracted, smaller sidebar.
+         <React.Fragment>
+            <StyledRetractedButtonContainer>
+               <StyledRetractedButton 
+                     ref={divRef} 
+                     style={location.pathname === '/' || location.pathname === '/home' ? buttonActiveStyle : buttonInactiveStyle}
+                     onClick={()=>handleButtonClick('home')}   
+                  >
+                  <StyledRetractedButtonImage src={require('../img/home.png')}/>
+                  Home
+               </StyledRetractedButton>
+   
+               <StyledRetractedButton 
+                     ref={divRef} 
+                     style={location.pathname === '/subscriptions' ? buttonActiveStyle : buttonInactiveStyle}
+                     onClick={()=>handleButtonClick('subscriptions')}   
+                  >
+                  <StyledRetractedButtonImage src={require('../img/subscription.png')}/>
+                  Subscriptions
+               </StyledRetractedButton>
+            </StyledRetractedButtonContainer>
+           
+            <StyledRetractedButtonContainer>
+               <StyledRetractedButton 
+                     ref={divRef} 
+                     style={location.pathname === '/library' ? buttonActiveStyle : buttonInactiveStyle}
+                     onClick={()=>handleButtonClick('library')}   
+                  >
+                  <StyledRetractedButtonImage src={require('../img/library.png')}/>
+                  Libary
+               </StyledRetractedButton>
+   
+               <StyledRetractedButton 
+                     ref={divRef} 
+                     style={location.pathname === '/history' ? buttonActiveStyle : buttonInactiveStyle}
+                     onClick={()=>handleButtonClick('history')}   
+                  >
+                  <StyledRetractedButtonImage src={require('../img/history.png')}/>
+                  History
+               </StyledRetractedButton>
+            </StyledRetractedButtonContainer>
+         </React.Fragment>
+         
+      )
+   }
+
+   else{
+      return(
          // Full extended sidebar.
-         <StyledSidebar>
+         <React.Fragment>
             <StyledButtonContainer>
                <StyledButton 
                      ref={divRef} 
@@ -79,54 +127,7 @@ const Sidebar = () => {
                   History
                </StyledButton>
             </StyledButtonContainer>
-         </StyledSidebar>
-      )
-   }
-
-   else{
-      return(
-         // Retracted, smaller sidebar.
-         <StyledRetractedSidebar>
-            <StyledRetractedButtonContainer>
-               <StyledRetractedButton 
-                     ref={divRef} 
-                     style={location.pathname === '/' || location.pathname === '/home' ? buttonActiveStyle : buttonInactiveStyle}
-                     onClick={()=>handleButtonClick('home')}   
-                  >
-                  <StyledRetractedButtonImage src={require('../img/home.png')}/>
-                  Home
-               </StyledRetractedButton>
-   
-               <StyledRetractedButton 
-                     ref={divRef} 
-                     style={location.pathname === '/subscriptions' ? buttonActiveStyle : buttonInactiveStyle}
-                     onClick={()=>handleButtonClick('subscriptions')}   
-                  >
-                  <StyledRetractedButtonImage src={require('../img/subscription.png')}/>
-                  Subscriptions
-               </StyledRetractedButton>
-            </StyledRetractedButtonContainer>
-           
-            <StyledRetractedButtonContainer>
-               <StyledRetractedButton 
-                     ref={divRef} 
-                     style={location.pathname === '/library' ? buttonActiveStyle : buttonInactiveStyle}
-                     onClick={()=>handleButtonClick('library')}   
-                  >
-                  <StyledRetractedButtonImage src={require('../img/library.png')}/>
-                  Libary
-               </StyledRetractedButton>
-   
-               <StyledRetractedButton 
-                     ref={divRef} 
-                     style={location.pathname === '/history' ? buttonActiveStyle : buttonInactiveStyle}
-                     onClick={()=>handleButtonClick('history')}   
-                  >
-                  <StyledRetractedButtonImage src={require('../img/history.png')}/>
-                  History
-               </StyledRetractedButton>
-            </StyledRetractedButtonContainer>
-         </StyledRetractedSidebar>
+         </React.Fragment>
       )
    }
 
@@ -141,12 +142,13 @@ const StyledSidebar = styled.nav`
    overflow-x:hidden;
    overflow-y:hidden;
    background-color: #1f1f1f;
-   cursor: pointer;
    color: #e3e3e3;
    &:hover {
       overflow-y:scroll;
    }
    padding-top:90px;
+   display:block;
+
 `;
 const StyledButton= styled.button`
    width:100%;
@@ -175,34 +177,17 @@ const StyledButtonImage = styled.img`
    top:4px;
 `
 
-
-// Retracted, smaller sidebar.
-const StyledRetractedSidebar = styled.nav`
-   position:fixed;
-   height:100%;
-   width:74px;
-   left:0;
-   overflow:hidden;
-   overflow-y:hidden;
-   background-color: #1f1f1f;
-   cursor: pointer;
-   color: #e3e3e3;
-   &:hover {
-      overflow-y:scroll;
-   }
-   padding-top:90px;
-`
 const StyledRetractedButtonContainer= styled.div`
    width:100%;
    height:auto;
-   margin-bottom:20px;
+   border-top:1px solid rgba(255,255,255,0.2);
    border-bottom:1px solid rgba(255,255,255,0.2);
 
 `
 const StyledRetractedButton= styled.button`
    width:100%;
-   height:60px;
-   margin: 15px auto;
+   height:70px;
+   padding-left:5px;
    background-color: #1f1f1f;
    color:#e3e3e3;
    border: none;
@@ -215,7 +200,7 @@ const StyledRetractedButton= styled.button`
 const StyledRetractedButtonImage = styled.img`
    width:20px;
    position:relative;
-   left:20px;
+   left:18px;
    bottom:3px;
    display:block;
 `

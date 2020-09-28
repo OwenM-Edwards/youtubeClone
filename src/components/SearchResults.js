@@ -4,7 +4,6 @@ import VideoItem from './VideoItem';
 
 // List of search videos.
 const SearchResults = ({currentSearchList}) => {
-
    return (
       <React.Fragment>
          {currentSearchList?.map((video, id) => (
@@ -15,4 +14,4 @@ const SearchResults = ({currentSearchList}) => {
 }
 
 
-export default SearchResults;
+export default SearchResults; 

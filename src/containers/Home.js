@@ -1,15 +1,26 @@
-import React, {useState, useContext} from 'react';
+import React from 'react';
 import styled from "styled-components";
-import { SearchBar} from '../components';
-import {
-   Link,
-   useHistory,
-} from "react-router-dom";
-import {useSelector,useDispatch} from 'react-redux';
-import { authenticateUser } from '../redux/actions';
-import {Widget} from 'react-cloudinary-upload-widget';
-import { CloudinaryContext } from 'cloudinary-react';
-import { fetchVideos, openUploadWidget } from "../util/CloudinaryService";
+
+
+// Main home page for user.
+const Home = () => {
+   return(
+      <Wrapper>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/>
+         <StyledDummyVideo/> 
+      </Wrapper>
+   )
+}
 
 
 const Wrapper = styled.div`
@@ -30,27 +41,6 @@ const StyledDummyVideo = styled.div`
    margin:10px;
    min-height:200px;
 `
-// Main home page for user.
-const Home = () => {
-   const history = useHistory();
-
-   return(
-      <Wrapper>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/>
-         <StyledDummyVideo/> 
-      </Wrapper>
-   )
-}
 
 
 export default Home

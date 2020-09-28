@@ -3,48 +3,6 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
 
-const Wrapper = styled.div`
-   max-width:900px;
-   width:50%;
-   margin:auto auto;
-   display:flex;
-   flex-direction:row;
-`;
-const StyledSearchBar = styled.input`
-   width:70%;
-   height:25px;
-   line-height:35px;
-   background:#121212;
-   border:1px solid #303030;
-   margin:0;
-   border-right:none;
-   font-weight:bold;
-   padding:5px;
-   color:#e3e3e3;
-   padding-left:20px;
-   font-size:1.2rem;
-   position:relative;
-   bottom:5px;
-   left:20%;
-`;
-const StyledSearchButton = styled.button` 
-   height:37px;
-   padding:5px;
-   width:80px;
-   margin-right:auto;
-   background-color:#323232;
-   border:none;
-   border-radius:0px 5px 5px 0px;
-   cursor:pointer;
-   position:relative;
-   bottom:5px;
-   left:20%;
-`;
-const StyledSearchImage = styled.img`
-   height:100%;
-
-`
-
 // Main searchbar. Is located inside the header.
 // On submit, sends user to seachResults.
 const SearchBar = () => {
@@ -67,6 +25,45 @@ const SearchBar = () => {
       </Wrapper>
    )
 }
+
+
+const Wrapper = styled.div`
+   max-width:900px;
+   width:100%;
+   margin:auto auto;
+   display:flex;
+   flex-direction:row;
+   justify-content:center;
+   height:100%;
+   align-items:center;
+   
+`;
+const StyledSearchBar = styled.input`
+   width:70%;
+   height:30px;
+   line-height:35px;
+   background:#121212;
+   border:none;
+   margin:0;
+   border-right:none;
+   font-weight:bold;
+   color:#e3e3e3;
+   padding-left:10px;
+   font-size:1rem;
+`;
+const StyledSearchButton = styled.button` 
+   height:32px;
+   padding:5px;
+   width:80px;
+   background-color:#323232;
+   border:none;
+   border-radius:0px 5px 5px 0px;
+   cursor:pointer;
+`;
+const StyledSearchImage = styled.img`
+   height:100%;
+
+`
 
 
 export default SearchBar;

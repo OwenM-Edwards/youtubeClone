@@ -2,7 +2,9 @@ import React, {useEffect} from 'react';
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
 
-const VideoDetails = ({videoUrl}) => {
+// Main video link view.
+// Contains large video player.
+const VideoPlayer = ({videoUrl}) => {
    const videoUrlFinal  = videoUrl; 
    let videoRef;
 
@@ -11,10 +13,12 @@ const VideoDetails = ({videoUrl}) => {
       const player = videojs(videoRef);   
       player.src(videoUrlFinal)
 
+
+
       return () => {
          player.dispose();
       };
-   });
+   }, []);
       
    return(
       <React.Fragment>
@@ -30,4 +34,5 @@ const VideoDetails = ({videoUrl}) => {
    )
 }; 
 
-export default VideoDetails;
+
+export default VideoPlayer;

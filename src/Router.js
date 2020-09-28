@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { Sidebar, Header } from './components';
 import { Watch, Search, SignIn, Register, Home, Upload } from './containers';
-import StyledContent from './styles/Content';
+// import StyledContent from './styles/Content';
 import {useSelector} from 'react-redux';
 
 const theme = {
@@ -22,10 +22,63 @@ const theme = {
 const Wrapper = styled.section`
    width:100%;
    height:100%;
+   background-color: #1f1f1f;
    display:flex;
-   flex-direction: column;
-   background-color:#181818;
+   flex-wrap:wrap;
+   box-sizing: border-box;  
 `;
+
+const StyledHeader = styled.header`
+   width:100%;
+   height:60px;
+
+   z-index:1;
+   background-color:${props => props.theme.primaryBGColor};
+
+
+   color:#e3e3e3;
+   position:fixed;
+   flex-shrink:3;
+   justify-content:space-between;
+   display:flex;
+   flex-direction:row;
+
+
+`
+const StyledSidebar = styled.nav`
+   height:100%;
+   width:70px;
+
+   overflow-x:hidden;
+   overflow-y:hidden;
+   background-color: #1f1f1f;
+   color: #e3e3e3;
+
+   position:fixed;
+   padding-top:80px;
+   display:flex;
+   flex-direction:column;
+   flex-wrap:wrap;
+`
+
+
+const StyledContent = styled.div`
+   background-color:#181818;
+   // flex: 1 0 auto;
+   width:100%;
+   height:100%;
+   overflow:hidden;
+   display:flex;
+   flex-wrap:wrap;
+   padding:40px;
+   -webkit-box-sizing: border-box; 
+   -moz-box-sizing: border-box;   
+   box-sizing: border-box;  
+   color: white;
+   margin-left:70px;
+   padding-top:60px;
+
+`
 
 
 const AppRouter = () => {
@@ -54,20 +107,17 @@ const AppRouter = () => {
                               render={() => <Upload/>}
                            />
                         </StyledContent>
-                        <Sidebar/>
+                        <StyledSidebar/>
                      </Wrapper>
         
                      : 
-                     <Route
-                        path="/upload"
-                        render={() => <SignIn/>}
-                     />
+                     <Route path="/upload"><Redirect to="/signIn" /></Route>
                }
                </Route>
                
 
                <Wrapper>
-                  <Header/>
+                  <StyledHeader><Header/></StyledHeader>
                   <StyledContent> 
                         <Route 
                            path="/search/:searchstring"
@@ -85,12 +135,11 @@ const AppRouter = () => {
                            path="/upload"
                            render={() => <Upload/>}
                         />
-                        <Route path="/"/>
+                        <Route path="/"><Redirect to="/home" /></Route>
                   </StyledContent>
-                  <Sidebar/>
+                  <StyledSidebar><Sidebar/></StyledSidebar>
                </Wrapper>
-
-               <Redirect to="/" />
+               <Redirect to="/home" />
             </Switch>
          </Router>
       </ThemeProvider>

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import { SearchBar} from '../components';
 import {
@@ -36,15 +36,22 @@ const Header = () => {
    }
 
    return(
-      <StyledHeader>
+      <React.Fragment>
          <StyledMobileBurgerButton onClick={handleToggleSidebar}>
             <StyledMobileBurgerButtonImg src={require('../img/mobileBurger.png')}/>
          </StyledMobileBurgerButton>
-         <Link style={{width:"0"}} to="/">
-            <StyledLogo src={require('../img/test.png')}></StyledLogo>
-         </Link>
+
          
-         <SearchBar/>
+            <Link to="/home">
+               <div style={{height:'100%', display:'flex', alignItems:'center'}}>
+                  <StyledLogo src={require('../img/test.png')}></StyledLogo>
+               </div>
+            </Link>
+         
+
+         
+         <StyledSearchContainer><SearchBar/></StyledSearchContainer>
+         
 
          {authenticated
             ?  <Link to="/upload" style={{ textDecoration: 'none' }}>
@@ -59,10 +66,12 @@ const Header = () => {
             {authenticated 
                ?  <StyledProfileButtonLoggedIn onClick={()=>profileTabState? setProfileTabState(false):setProfileTabState(true) }/>
                :  <Link to="/signIn" style={{ textDecoration: 'none' }}>
-                     <StyledProfileButtonLoggedOut onClick={()=>profileTabState? setProfileTabState(false):setProfileTabState(true) }>
-                        <StyledProfileImg src={profileImg}/>
-                        <p style={{fontSize:"18px" ,color:"#E3E3E3"}}>SIGN IN</p>
-                     </StyledProfileButtonLoggedOut>
+                     <div style={{paddingRight:'10px',height:'100%', display:'flex', alignItems:'center'}}>
+                        <StyledProfileButtonLoggedOut onClick={()=>profileTabState? setProfileTabState(false):setProfileTabState(true) }>
+                           <StyledProfileImg src={profileImg}/>
+                           <p style={{fontSize:"1rem" ,color:"#6bbef2"}}>SIGN IN</p>
+                        </StyledProfileButtonLoggedOut>
+                     </div>
                   </Link>
             }
             {profileTabState 
@@ -74,65 +83,49 @@ const Header = () => {
          </React.Fragment>
 
 
-      </StyledHeader>
+      </React.Fragment>
    )
 }
 
-
+const StyledSearchContainer = styled.div`
+   height:auto;
+   display:flex;
+   flex-grow:1;
+`
 
 const StyledUploadButton = styled.button`
-   width:50px;
-   height:33px;
+   height:100%;
    cursor:pointer;
-   position:relative;
-   bottom:5px;
-   right:10px;
-
    outline:none;
    color:inherit;
    background:none;
    border:none;
+   margin-right:15px;
 `
 const StyledUploadImage = styled.img`
-   width:100%;
+   height:40%;
 `
 
-const StyledHeader = styled.header`
-   flex-shrink: 0;
-   width:100%;
-   height:60px;
-   background-color:${props => props.theme.primaryBGColor};
-   display:flex;
-   flex-direction:row;
-   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-   color:#e3e3e3;
-   padding:10px;
-   padding-top:20px;
-   box-sizing: border-box;  
-   z-index:2;
-`
 
 const StyledLogo = styled.img`
-   height:170%;
-   position:relative;
-   left:28px;
-   bottom:15px;
+   height:40px;
+   max-width:100px;
+
 `
 const StyledMobileBurgerButton = styled.button`
    outline:none;
    color:inherit;
    background:none;
-   margin:0;
    border:none;
-   position:relative;
-   left:0px;
-   width:40px;
-   bottom:5px;
    cursor:pointer;
+   height:100%;
+   width:70px;
 `
 const StyledMobileBurgerButtonImg = styled.img`
-   height: 90%;
+   height: 40%;
 `
+
+
 
 const StyledProfileButtonLoggedIn = styled.button`
    background-color:orange;
@@ -148,24 +141,27 @@ const StyledProfileButtonLoggedIn = styled.button`
 const StyledProfileButtonLoggedOut = styled.button`
    background-color:${props => props.theme.primaryBGColor};
    color:${props => props.theme.primaryFontColor};
-   z-index:2;
-   position:relative;
-   width:120px;
-   height:40px;
-   bottom:10px;
+   height:50%;
+   width:110px;
+   font-size:0.1rem;
    cursor:pointer;
    display:flex;
-   padding:10px;
+   flex-direction:row;
    justify-content:center;
    align-items:center;
    border-radius:2px;
    transition: all 0.2s;
    text-decoration: none;
-   border:1px solid ${props => props.theme.primaryFontColor};
-
+   border:1px solid #6bbef2;
    // &:hover {
    //    background-color:${props => props.theme.primaryFontColor};
    // }
+   
+
+`
+const StyledProfileImg = styled.img`
+   height:50%;
+   margin:auto auto;
 
 `
 
@@ -182,11 +178,6 @@ const StyledProfileTab = styled.div`
    top:30px;
    right:80px;
    text-align:center;
-`
-const StyledProfileImg = styled.img`
-   height:120%;
-   padding-right:10px;
-
 `
 
 

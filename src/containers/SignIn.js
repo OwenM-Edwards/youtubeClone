@@ -1,16 +1,13 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
-import { SearchBar, LoadingIndicator } from '../components';
+import { LoadingIndicator } from '../components';
 import {
-   Link,
    useHistory,
 } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux';
 import { authenticateUser, userStore } from '../redux/actions';
-import { useParams } from "react-router-dom";
 import { usePromiseTracker } from "react-promise-tracker";
 import { trackPromise } from 'react-promise-tracker';
-import axios from "axios";
 
 
 
@@ -23,7 +20,6 @@ const SignIn = () => {
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
    const authenticated = useSelector(state=>state.authenticated.authenticated);
-   const test = useSelector(state=>state.userStore.user);
 
    const handleUsernameChange = (event) => {
       setUsername(event.target.value);
@@ -171,7 +167,6 @@ const StyledButton = styled.button`
       background-color:#b3b3b3;
    }
 `
-
 
 
 export default SignIn

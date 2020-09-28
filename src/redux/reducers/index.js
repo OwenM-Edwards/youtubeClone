@@ -4,6 +4,9 @@ import userReducer from './user';
 import toggleSidebarReducer from './toggleSidebar';
 import {combineReducers} from 'redux';
 import userStoreReducer from './userStore';
+import setCurrentVideoReducer from './setCurrentVideo';
+import updateSearchReducer from './updateSearch';
+
 
 const rootReducer = combineReducers({ 
    searchQuery:setSearchReducer,
@@ -11,6 +14,8 @@ const rootReducer = combineReducers({
    authenticated:userReducer,
    toggleSidebar:toggleSidebarReducer,
    userStore:userStoreReducer,
+   currentVideo:setCurrentVideoReducer,
+   updatedVideoList:updateSearchReducer,
 })
 
 

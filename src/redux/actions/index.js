@@ -1,20 +1,22 @@
 import youtube from '../../api/youtube';
 
 
-export const setSearch = (searchTerm) => async (dispatch) => {
-   const videoResponse = await youtube.get('search', { 
-      params: {
-         part: 'snippet',
-         maxResults: 3,
-         key: 'AIzaSyChmmFF1_eI9QnAvb1VTb88zjWTC8PkUG0',
-         q: searchTerm,
-      }
-   })
+export const setSearch = (videoResponse) => async (dispatch) => {
+   // const videoResponse = await cloudinary.get(`search/${searchTerm}`);
+   dispatch({
+      type: 'SET_RESULTS',
+      payload: {
+         isFetching: false,
+         videos: videoResponse.resources
+      },
+   });
+};
+
+export const updateSearch = (list) => (dispatch) => {
    dispatch({
       type: 'UPDATE_RESULTS',
       payload: {
-         isFetching: false,
-         videos: videoResponse.data.items,
+         videos: list
       },
    });
 };
@@ -54,5 +56,15 @@ export const toggleSidebar = (payload) => (dispatch) => {
    dispatch({
       type: 'TOGGLE_SIDEBAR',
          payload: payload,
+   })
+}
+
+export const setCurrentVideo = (payload) => (dispatch) => {
+   dispatch({
+      type: 'SET_CURRENT_VIDEO',
+      payload: {
+         video: payload,
+         isFetching: false,
+      }
    })
 }
