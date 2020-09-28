@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { SearchBar} from '../components';
 import {
    Link,
+   useHistory,
 } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux';
 import { authenticateUser, toggleSidebar } from '../redux/actions';
@@ -16,13 +17,14 @@ import profileImg from '../img/blankProfile.png';
 // and the main searchbar.
 const Header = () => {
    const dispatch = useDispatch();
+   const history = useHistory();
    const [profileTabState, setProfileTabState] = useState(false);
    const authenticated = useSelector(state=>state.authenticated.authenticated);
    const sidebarToggleState = useSelector(state=>state.toggleSidebar.isExtended);
   
-
-   const loginUser = (state) => {
-      dispatch(authenticateUser(state));
+   const logoutUser = () => {
+      localStorage.clear();
+      window.location.reload();
    }
 
    // Fired from mobile style hamburger button, extends or retracts the sidebar.
@@ -76,7 +78,7 @@ const Header = () => {
             }
             {profileTabState 
                ? authenticated 
-                  ? <StyledProfileTab><h1 onClick={()=>loginUser(false)}>SIGN OUT</h1></StyledProfileTab> 
+                  ? <StyledProfileTab><h1 onClick={()=>logoutUser()}>SIGN OUT</h1></StyledProfileTab> 
                   : <React.Fragment/> 
                : <React.Fragment/>
             }
