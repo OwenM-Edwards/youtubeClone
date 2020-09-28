@@ -2,30 +2,11 @@ import React, {useEffect} from 'react';
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
 
-const VideoDetails = ({videoUrl}) => {
-   const videoUrlFinal  = videoUrl; 
-   let videoRef;
-
-
-   useEffect(() => {
-      const player = videojs(videoRef);   
-      player.src(videoUrlFinal)
-
-      return () => {
-         player.dispose();
-      };
-   });
-      
+const VideoDetails = ({video}) => {
+   const videoName = video.filename;
    return(
       <React.Fragment>
-         <div data-vjs-player>
-            <video 
-               controls
-               className="video-js vjs-fluid vjs-big-play-centered"
-               ref={(node) => (videoRef = node)}
-               style={{width:"100%"}}
-            />
-         </div>
+         <h1>{videoName}</h1>
       </React.Fragment>
    )
 }; 
