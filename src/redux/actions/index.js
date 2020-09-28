@@ -7,7 +7,7 @@ export const setSearch = (videoResponse) => async (dispatch) => {
       type: 'SET_RESULTS',
       payload: {
          isFetching: false,
-         videos: videoResponse.resources
+         videos: videoResponse
       },
    });
 };
