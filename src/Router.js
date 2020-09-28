@@ -7,7 +7,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { Sidebar, Header } from './components';
-import { Watch, Search, SignIn, Register, Home, Upload } from './containers';
+import { Watch, Search, SignIn, Register, Home, Upload } from './pages';
 // import StyledContent from './styles/Content';
 import {useSelector} from 'react-redux';
 
@@ -70,7 +70,7 @@ const StyledContent = styled.div`
    overflow:hidden;
    display:flex;
    flex-wrap:wrap;
-   padding:40px;
+   // padding:40px;
    -webkit-box-sizing: border-box; 
    -moz-box-sizing: border-box;   
    box-sizing: border-box;  
@@ -135,7 +135,7 @@ const AppRouter = () => {
                            path="/upload"
                            render={() => <Upload/>}
                         />
-                        <Route path="/"><Redirect to="/home" /></Route>
+                        {/* <Route path="/"><Redirect to="/home" /></Route> */}
                   </StyledContent>
                   <StyledSidebar><Sidebar/></StyledSidebar>
                </Wrapper>
